@@ -43,7 +43,5 @@ public interface MeetingApiService {
      * @param idMeeting meeting to delete using unique identifier
      */
 
-    void removeMeeting(Integer idMeeting);
-
 
 }

@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import com.lamine.mareu.R;
 import com.lamine.mareu.events.DeleteMeetingEvent;
 import com.lamine.mareu.model.Meeting;
-import com.lamine.mareu.service.MeetingApiService;
 import com.lamine.mareu.view.ItemMeeting;
 
 import org.greenrobot.eventbus.EventBus;
@@ -24,23 +23,24 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.lamine.mareu.ui.ListMeetingActivity.sApiService;
+
 
 /**
  * Created by Lamine MESSACI on 28/02/2020.
  */
 
-public class ItemMeetingRecyclerViewApdater extends RecyclerView.Adapter<ItemMeeting> {
+public class ItemMeetingRecyclerViewAdapter extends RecyclerView.Adapter<ItemMeeting> {
 
-
-    public MeetingApiService mApiService;
 
    private Context mContext;
    private List<Meeting> mMeetings;
 
-    public ItemMeetingRecyclerViewApdater (Context context, Calendar date, String room) {
-        mContext = context;
-        mMeetings = mApiService.getMeetings (date, room);
+    public ItemMeetingRecyclerViewAdapter (Context context, Calendar date, String room) {
+       this.mContext = context;
+        this.mMeetings = sApiService.getMeetings (date, room);
     }
+
 
     @NonNull
     @Override
