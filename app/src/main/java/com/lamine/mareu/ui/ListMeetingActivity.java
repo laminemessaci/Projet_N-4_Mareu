@@ -80,7 +80,6 @@ public class ListMeetingActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager (this));
         mItemMeetingRecyclerViewAdapter = new ItemMeetingRecyclerViewAdapter(getApplicationContext (), date, room);
         mRecyclerView.setAdapter(mItemMeetingRecyclerViewAdapter);
-
     }
 
 
