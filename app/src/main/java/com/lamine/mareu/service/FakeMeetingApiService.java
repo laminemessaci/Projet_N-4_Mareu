@@ -10,13 +10,13 @@ import java.util.List;
 /**
  * Created by Lamine MESSACI on 28/02/2020.
  */
-public class FakeMeetingApieService implements MeetingApiService {
+public class FakeMeetingApiService implements MeetingApiService {
 
 
     private List<Meeting> mMeetings;
     private final List<String> mRooms;
 
-    public FakeMeetingApieService () {
+    public FakeMeetingApiService () {
 
         mMeetings = new ArrayList<> ();
         mRooms = new ArrayList<>(Arrays.asList(

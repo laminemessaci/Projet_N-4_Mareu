@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,15 +13,14 @@
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
         tools:context=".ui.ListMeetingActivity"
-        android:orientation="vertical"
         tools:listitem="@layout/meeting_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add"
-        android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_add_white"
         android:layout_gravity="bottom|end"
-        android:layout_margin="2dp"
-        android:src="@drawable/ic_add_white" />
+        android:layout_margin="6dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

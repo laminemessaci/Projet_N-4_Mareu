@@ -25,7 +25,6 @@ public class ListMeetingActivity extends AppCompatActivity {
 
     public static  MeetingApiService sApiService;
 
-
     @BindView (R.id.list) RecyclerView mRecyclerView;
     @BindView (R.id.add) FloatingActionButton mFloatingActionButton;
     private ItemMeetingRecyclerViewAdapter mItemMeetingRecyclerViewAdapter;
@@ -39,7 +38,7 @@ public class ListMeetingActivity extends AppCompatActivity {
         ButterKnife.bind (this);
 
 
-        sApiService = DI.getApieService ();
+        sApiService = DI.getApiService ();
 
         mFloatingActionButton.setOnClickListener(new View.OnClickListener () {
             @Override
@@ -68,19 +67,21 @@ public class ListMeetingActivity extends AppCompatActivity {
 
     @Override
     protected void onStop () {
+        EventBus.getDefault ().unregister (this);
         super.onStop ();
     }
 
     @Subscribe
-    public void onDeleteMeeting(DeleteMeetingEvent event){
+    public void onDeleteMeeting(DeleteMeetingEvent event) {
+
 
     }
+
 
     private void init(Calendar date, String room) {
         mRecyclerView.setLayoutManager(new LinearLayoutManager (this));
         mItemMeetingRecyclerViewAdapter = new ItemMeetingRecyclerViewAdapter(getApplicationContext (), date, room);
         mRecyclerView.setAdapter(mItemMeetingRecyclerViewAdapter);
     }
-
 
 }

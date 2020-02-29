@@ -1,8 +1,15 @@
 <resources>
-    <string name="app_name">Mareu</string>
-    <string name="default_text">Default text</string>
-    <string name="default_content_description">Default content description</string>
-    <string name="content_description_delete_meeting">Delete meeting</string>
-    <string name="list_of_participants">List of participants (emails)</string>
+    <string name="app_name" translatable="false">Mareu</string>
+    <string name="default_text" translatable="false">Default text</string>
+    <string name="default_content_description" translatable="false">Default content description</string>
+    <string name="content_description_delete_meeting" translatable="false">Delete meeting</string>
+    <string name="list_of_participants" translatable="false">List of participants (emails)</string>
+    <string name="menu_filter" translatable="false">Filtering</string>
+    <dimen name="spinner_item_margin">8dp</dimen>
+    <dimen name="text_view_spinner_size">18sp</dimen>
+    <dimen name="text_view_spinner_item_size">16sp</dimen>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

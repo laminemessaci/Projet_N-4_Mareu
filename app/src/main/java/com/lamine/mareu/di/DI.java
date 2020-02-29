@@ -1,6 +1,6 @@
 package com.lamine.mareu.di;
 
-import com.lamine.mareu.service.FakeMeetingApieService;
+import com.lamine.mareu.service.FakeMeetingApiService;
 import com.lamine.mareu.service.MeetingApiService;
 
 /**
@@ -8,13 +8,15 @@ import com.lamine.mareu.service.MeetingApiService;
  */
 public class DI {
 
-    private static MeetingApiService sService = new FakeMeetingApieService ();
+    private static MeetingApiService sService = new FakeMeetingApiService ();
 
     /**
      * Get instance on @(link MeetingApieService)
      * @return FakeMeetingApiService()
      */
-    public static MeetingApiService getApieService () {
+    public static MeetingApiService getApiService () {
         return sService;
     }
+
+
 }
