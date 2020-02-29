@@ -27,35 +27,36 @@ public class FakeMeetingApieService implements MeetingApiService {
 
 
     @Override
-    public List<String> getRooms () {
+    public List<String> getRooms () { return mRooms; }
 
-        // TO DO
-        return mRooms;
+    @Override
+    public void addRoom (String room) { mRooms.add (room);
     }
 
     @Override
-    public void addRoom (String romm) {
-
-    }
+    public void delRoom (String room) { mRooms.remove (room); }
 
     @Override
-    public void deleteRoom (String romm) {
-        //TO DO
-
+    public void delAllRooms () {
+        mRooms.clear ();
     }
 
     @Override
     public List<Meeting> getMeetings (Calendar date, String roomName) {
-
         //TO DO
-
         return mMeetings;
     }
 
     @Override
-    public void addMeeting (Meeting meeting) {
+    public void addMeeting (Meeting meeting) throws MeetingApiServiceException {
         // TO DO
 
     }
+
+    @Override
+    public void delMeeting (Integer idMeeting) throws MeetingApiServiceException {
+        // TO DO
+    }
+
 
 }

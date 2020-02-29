@@ -22,7 +22,17 @@ public interface MeetingApiService {
      */
     void addRoom(String romm);
 
-    void deleteRoom(String romm);
+    /**
+     * remove a meeting room
+     * @param romm meeting room to delete
+     */
+    void delRoom(String romm);
+
+    /**
+     * remove all meeting rooms
+     * source path to delete all meeting rooms
+     */
+    void delAllRooms();
 
     /**
      * get Meeting
@@ -36,12 +46,11 @@ public interface MeetingApiService {
      * add meeting
      * @param meeting meeting to add
      */
-    void addMeeting(Meeting meeting);
+    void addMeeting(Meeting meeting) throws MeetingApiServiceException;
 
     /**
-     * Remove a meeting
-     * @param idMeeting meeting to delete using unique identifier
+     * remove a meeting with his Unique Identifier
+     * @param idMeeting
      */
-
-
+    public void delMeeting(Integer idMeeting) throws MeetingApiServiceException;
 }
