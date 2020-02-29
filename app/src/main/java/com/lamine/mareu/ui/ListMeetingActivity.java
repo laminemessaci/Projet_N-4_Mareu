@@ -7,9 +7,11 @@ import android.view.View;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lamine.mareu.R;
 import com.lamine.mareu.di.DI;
+import com.lamine.mareu.events.DeleteMeetingEvent;
 import com.lamine.mareu.service.MeetingApiService;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Calendar;
 
@@ -69,11 +71,17 @@ public class ListMeetingActivity extends AppCompatActivity {
         super.onStop ();
     }
 
+    @Subscribe
+    public void onDeleteMeeting(DeleteMeetingEvent event){
+
+    }
+
     private void init(Calendar date, String room) {
         mRecyclerView.setLayoutManager(new LinearLayoutManager (this));
         mItemMeetingRecyclerViewAdapter = new ItemMeetingRecyclerViewAdapter(getApplicationContext (), date, room);
         mRecyclerView.setAdapter(mItemMeetingRecyclerViewAdapter);
 
-
     }
+
+
 }

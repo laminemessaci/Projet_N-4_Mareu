@@ -1,12 +1,18 @@
 package com.lamine.mareu.model;
 
+import android.graphics.Color;
+
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Lamine MESSACI on 28/02/2020.
  */
 public class Meeting {
+
+    private static Integer sLastId = 0;
+    private static Random sRandom = new Random();
 
     private Integer mId;
     private String mRoomName;
@@ -26,11 +32,19 @@ public class Meeting {
      */
 
     public Meeting (String roomName, Calendar start, Calendar end, String topic, List<String> participants) {
+        mId = ++sLastId; //unique identifier
         mRoomName = roomName;
         mStart = start;
         mEnd = end;
         mTopic = topic;
         mParticipants = participants;
+
+        // Generate random color
+        mColor = Color.argb(
+                sRandom.nextInt(255),
+                sRandom.nextInt(255),
+                sRandom.nextInt(255),
+                sRandom.nextInt(255));
     }
 
 
@@ -60,5 +74,11 @@ public class Meeting {
 
     public Integer getColor () {
         return mColor;
+    }
+
+    private void setParticipants(List<String> participants) {
+
+
+        //TO DO
     }
 }
