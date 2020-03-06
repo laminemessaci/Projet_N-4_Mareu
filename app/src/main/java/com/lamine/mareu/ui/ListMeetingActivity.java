@@ -84,4 +84,6 @@ public class ListMeetingActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mItemMeetingRecyclerViewAdapter);
     }
 
+
+
 }
