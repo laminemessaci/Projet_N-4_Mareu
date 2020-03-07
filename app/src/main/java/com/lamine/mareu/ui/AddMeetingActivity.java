@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 
 import com.google.android.material.chip.ChipGroup;
@@ -59,7 +60,6 @@ public class AddMeetingActivity extends AppCompatActivity {
     @BindView(R.id.emails)
     TextInputEditText mEmailsTextInputEditText;
 
-
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
@@ -71,8 +71,9 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         // Meeting room Array of rooms
         mRoomNameAutoCompleteTextView.setAdapter(new ArrayAdapter<> (this, R.layout.room_item, mRooms));
-
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
@@ -81,15 +82,27 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
 
+//To commit................. a changer par une toolbar plutard  +
     @Override
     public boolean onOptionsItemSelected (@NonNull MenuItem item) {
 
-        //TO DO
-        return super.onOptionsItemSelected (item);
+        switch (item.getItemId()) {
+            case R.id.action_add_meeting:
+                addMeeting ();
+                return true;
+            case android.R.id.home:
+                Toast.makeText (this.getApplicationContext (), R.string.abort_add_meeting, Toast.LENGTH_LONG).show ();
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
-
-
+    /**
+     * scrolling menu for choice Room
+     * @param v
+     * @param event
+     * @return true Action_down & Action_up
+     */
     @OnTouch(R.id.room_name)
     boolean onTouch(View v, MotionEvent event) {
         if(event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -100,6 +113,38 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * this will display the calendar on touching TextInputEditText(date)
+     */
+    @OnTouch(R.id.date)
+    void displayDatePicker() {
+         final Calendar calendar = Calendar.getInstance();
+        DatePickerDialog mDatePickerDialog;
 
+        mDatePickerDialog = new DatePickerDialog(AddMeetingActivity.this,
+                new DatePickerDialog.OnDateSetListener () {
+                    @Override
+                    public void onDateSet (DatePicker view, int year, int month, int dayOfMonth) {
+                        Calendar cal = Calendar.getInstance ();
+                        cal.set (year, month, dayOfMonth);
+                        mDateTextInputEditText.setText (DateFormat.getDateFormat (AddMeetingActivity.this.getApplicationContext ()).format (cal.getTime ()));
+                        if (cal.before (calendar)) {
+                            mDateTextInputLayout.setError (AddMeetingActivity.this.getText (R.string.error_date_passed));
+                        }
+                    }
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+
+        mDatePickerDialog.show();
+    }
+
+
+
+    private void addMeeting(){
+
+        //TO DO
+    }
 
 }

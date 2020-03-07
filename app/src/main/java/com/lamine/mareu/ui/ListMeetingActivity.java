@@ -2,6 +2,7 @@ package com.lamine.mareu.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -70,6 +71,17 @@ public class ListMeetingActivity extends AppCompatActivity {
         EventBus.getDefault ().unregister (this);
         super.onStop ();
     }
+
+
+    // TO DO
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu_filter, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
 
     @Subscribe
     public void onDeleteMeeting(DeleteMeetingEvent event) {

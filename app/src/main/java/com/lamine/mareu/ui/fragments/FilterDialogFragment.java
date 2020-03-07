@@ -2,13 +2,18 @@ package com.lamine.mareu.ui.fragments;
 
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +31,8 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnTouch;
 
 
 /**
@@ -97,5 +104,59 @@ public class FilterDialogFragment extends DialogFragment {
         });
 
         return builder.create ();
+    }
+
+    private void createCallbackToParentActivity() {
+        mCallback = (OnButtonClickedListener) getActivity();
+    }
+
+    /**
+     * OnClick on our date_filter witch display Calendar for getting our date filter
+     */
+
+    @OnClick(R.id.date_filter)
+    void displayDatePicker() {
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog mDatePickerDialog;
+
+        mDatePickerDialog = new DatePickerDialog(Objects.requireNonNull(getContext()),
+                new DatePickerDialog.OnDateSetListener () {
+                    @Override
+                    public void onDateSet (DatePicker view, int year, int month, int dayOfMonth) {
+                        Calendar cal = Calendar.getInstance ();
+                        cal.set (year, month, dayOfMonth);
+                        mDateFilter.setText (DateFormat.getDateFormat (FilterDialogFragment.this.getContext ()).format (cal.getTime ()));
+                        mDate = cal;
+                    }
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+
+        mDatePickerDialog.show();
+    }
+
+    /**
+     * function OnTouch our room_filter
+     * @param v view
+     * @param event Action
+     * @return true if Action_Down & Action_Up
+     */
+    @OnTouch(R.id.room_filter)
+    boolean onTouch(View v, MotionEvent event) {
+        if(event.getAction() == MotionEvent.ACTION_DOWN) {
+            mRoomFilter.showDropDown();
+            return true;
+        }
+
+        return (event.getAction() == MotionEvent.ACTION_UP);
+    }
+
+    //in this method we are sure of the attachment so we make a callback
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        createCallbackToParentActivity();
     }
 }
