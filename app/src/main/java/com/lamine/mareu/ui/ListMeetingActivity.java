@@ -3,6 +3,7 @@ package com.lamine.mareu.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -16,6 +17,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Calendar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -73,7 +75,11 @@ public class ListMeetingActivity extends AppCompatActivity {
     }
 
 
-    // TO DO
+    /**
+     * display menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -82,6 +88,16 @@ public class ListMeetingActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected (@NonNull MenuItem item) {
+
+        if (item.getItemId () ==R.id.filter){
+            // TO DO
+            return true;
+        }
+
+        return super.onOptionsItemSelected (item);
+    }
 
     @Subscribe
     public void onDeleteMeeting(DeleteMeetingEvent event) {
