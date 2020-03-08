@@ -78,7 +78,6 @@ public class FilterDialogFragment extends DialogFragment {
         builder.setView(view);
         builder.setTitle(R.string.select_filter);
 
-
         //Button to confirm the choice and validation "ok"
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener () {
             @Override
@@ -114,7 +113,7 @@ public class FilterDialogFragment extends DialogFragment {
      * OnClick on our date_filter witch display Calendar for getting our date filter
      */
 
-    @OnClick(R.id.date_filter)
+    @OnTouch(R.id.date_filter)
     void displayDatePicker() {
         Calendar calendar = Calendar.getInstance();
         DatePickerDialog mDatePickerDialog;

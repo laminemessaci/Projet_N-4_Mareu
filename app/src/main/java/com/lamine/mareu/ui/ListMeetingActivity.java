@@ -11,6 +11,7 @@ import com.lamine.mareu.R;
 import com.lamine.mareu.di.DI;
 import com.lamine.mareu.events.DeleteMeetingEvent;
 import com.lamine.mareu.service.MeetingApiService;
+import com.lamine.mareu.ui.fragments.FilterDialogFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -24,7 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ListMeetingActivity extends AppCompatActivity {
+public class ListMeetingActivity extends AppCompatActivity implements FilterDialogFragment.OnButtonClickedListener{
 
     public static  MeetingApiService sApiService;
 
@@ -92,12 +93,18 @@ public class ListMeetingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected (@NonNull MenuItem item) {
 
         if (item.getItemId () ==R.id.filter){
-            // TO DO
+            performeFilter();
             return true;
         }
 
         return super.onOptionsItemSelected (item);
     }
+
+    private void performeFilter () {
+        FilterDialogFragment filterDialogFragment = new FilterDialogFragment (sApiService.getRooms ());
+        filterDialogFragment.show (getSupportFragmentManager (), "Filter");
+    }
+
 
     @Subscribe
     public void onDeleteMeeting(DeleteMeetingEvent event) {
@@ -113,5 +120,10 @@ public class ListMeetingActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onButtonClicked (Calendar date, String room, boolean reset) {
+        if (reset || date != null || ! room.isEmpty ())
+            init (date, room);
 
+    }
 }

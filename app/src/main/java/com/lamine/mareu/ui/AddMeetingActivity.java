@@ -5,6 +5,8 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -140,7 +142,14 @@ public class AddMeetingActivity extends AppCompatActivity {
         mDatePickerDialog.show();
     }
 
-
+   // @Override
+   // public boolean onKeyDown (int keyCode, KeyEvent event) {
+   //         if (keyCode == KeyEvent.KEYCODE_HOME) {
+   //             Log.i("TESTE", "BOTAO HOME");
+   //             return true;
+   //     }
+   //     return super.onKeyDown (keyCode, event);
+   // }
 
     private void addMeeting(){
 
