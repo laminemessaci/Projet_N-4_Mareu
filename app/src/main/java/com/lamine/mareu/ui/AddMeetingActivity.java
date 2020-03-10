@@ -56,8 +56,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
 
     @BindView(R.id.room_name_layout) TextInputLayout mRoomNameTextInputLayout;
-    @BindView(R.id.room_name)
-    AutoCompleteTextView mRoomNameAutoCompleteTextView;
+    @BindView(R.id.room_name) AutoCompleteTextView mRoomNameAutoCompleteTextView;
 
     @BindView(R.id.topic_layout) TextInputLayout mTopicTextInputLayout;
     @BindView(R.id.topic) TextInputEditText mTopicTextInputEditText;
@@ -139,7 +138,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     /**
      * this will display the calendar on touching TextInputEditText(date)
      */
-    @OnTouch(R.id.date)
+    @OnClick(R.id.date)
     void displayDatePicker() {
          final Calendar calendar = Calendar.getInstance();
         DatePickerDialog mDatePickerDialog;
@@ -163,13 +162,34 @@ public class AddMeetingActivity extends AppCompatActivity {
         mDatePickerDialog.show();
     }
 
+    @OnClick({R.id.from, R.id.to})
+    void displayTimePicker(View v) {
+        final int id = v.getId();
 
+        Calendar time = Calendar.getInstance();
+        TimePickerDialog mTimePickerDialog;
 
-    private void addMeeting(){
+        int roundedMinutes = time.get(Calendar.MINUTE) % 15;
+        time.add(Calendar.MINUTE, roundedMinutes > 0 ? (15 - roundedMinutes) : 0);
 
-       //TO DO
+        mTimePickerDialog = new TimePickerDialog(AddMeetingActivity.this,
+                (view, hourOfDay, minute) -> {
+                    Calendar tim = Calendar.getInstance();
+                    tim.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                    tim.set(Calendar.MINUTE, minute);
+                    if (id == R.id.from)
+                        mStartTimeTextInputEditText.setText(DateFormat.getTimeFormat(getApplicationContext()).format(tim.getTime()));
+                    else if (id == R.id.to)
+                        mEndTimeTextInputEditText.setText(DateFormat.getTimeFormat(getApplicationContext()).format(tim.getTime()));
+                },
+                time.get(Calendar.HOUR_OF_DAY),
+                time.get(Calendar.MINUTE),
+                DateFormat.is24HourFormat(AddMeetingActivity.this));
+
+        mTimePickerDialog.show();
     }
 
+    private void addMeeting(){};
 
 
 }

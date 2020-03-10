@@ -1,24 +1,4 @@
 <resources>
-    <!--
-    <string name="app_name" translatable="false">Mareu</string>
-    <string name="default_text" translatable="false">Default text</string>
-    <string name="default_content_description" translatable="false">Default content description</string>
-    <string name="content_description_delete_meeting" translatable="false">Delete meeting</string>
-    <string name="list_of_participants" translatable="false">List of participants (emails)</string>
-    <string name="menu_filter" translatable="false">Filtering</string>
-    <dimen name="spinner_item_margin">8dp</dimen>
-    <dimen name="text_view_spinner_size">18sp</dimen>
-    <dimen name="text_view_spinner_item_size">16sp</dimen>
-    <string name="meeting_room_name">Meeting room name</string>
-    <string name="meeting_topic">Meeting topic</string>
-    <string name="cancel">Cancel</string>
-    <string name="add">Add</string>
-    <string name="date">Date</string>
-    <string name="from">From</string>
-    <string name="to">To</string>
-    <string name="action_add">Add</string>
-    <string name="error_date_passed">The date cannot be passed</string>
-    -->
 
     <string name="app_name">MaRéu</string>
     <string name="default_text">Default text</string>
@@ -57,7 +37,6 @@
     <string name="room_filter">Filter by room name</string>
     <string name="select_filter">Choices filter</string>
     <string name="reset">Reset</string>
-
 
 
     <!-- TODO: Remove or change this placeholder text -->
