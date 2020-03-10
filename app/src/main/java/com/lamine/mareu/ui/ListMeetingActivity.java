@@ -20,17 +20,20 @@ import java.util.Calendar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ListMeetingActivity extends AppCompatActivity implements FilterDialogFragment.OnButtonClickedListener{
+public class ListMeetingActivity extends AppCompatActivity implements FilterDialogFragment.OnButtonClickedListener {
 
-    public static  MeetingApiService sApiService;
+    public static MeetingApiService sApiService;
 
-    @BindView (R.id.list) RecyclerView mRecyclerView;
-    @BindView (R.id.add) FloatingActionButton mFloatingActionButton;
+    @BindView(R.id.list)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.add)
+    FloatingActionButton mFloatingActionButton;
     private ItemMeetingRecyclerViewAdapter mItemMeetingRecyclerViewAdapter;
 
 
@@ -44,22 +47,52 @@ public class ListMeetingActivity extends AppCompatActivity implements FilterDial
 
         sApiService = DI.getApiService ();
 
-        mFloatingActionButton.setOnClickListener(new View.OnClickListener () {
+        mFloatingActionButton.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View v) {
                 ListMeetingActivity.this.startActivity (new Intent (ListMeetingActivity.this, AddMeetingActivity.class));
             }
         });
 
+     this.configureToolbar ();
 
     }
+
+    private void configureToolbar(){
+        Toolbar toolbar = (Toolbar) findViewById (R.id.activity_main_toolbar);
+        setSupportActionBar (toolbar);
+
+     }
+
+    /**
+     * Fragment Filter (room & date)
+     */
+
+    private void performeFilter () {
+
+        FilterDialogFragment filterDialogFragment = new FilterDialogFragment (sApiService.getRooms ());
+        filterDialogFragment.show (getSupportFragmentManager (), "Filter");
+    }
+
+
+    @Override
+
+    public boolean onOptionsItemSelected (@NonNull MenuItem item) {
+
+        if (item.getItemId () ==R.id.filter){
+          performeFilter();
+          return true;
+        }
+
+       return super.onOptionsItemSelected (item);
+    }
+
 
     @Override
     protected void onPostResume () {
         super.onPostResume ();
         init(null, "");
     }
-
 
 
     @Override
@@ -85,30 +118,13 @@ public class ListMeetingActivity extends AppCompatActivity implements FilterDial
     public boolean onCreateOptionsMenu(Menu menu)
     {
         getMenuInflater().inflate(R.menu.menu_filter, menu);
-
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected (@NonNull MenuItem item) {
-
-        if (item.getItemId () ==R.id.filter){
-            performeFilter();
-            return true;
-        }
-
-        return super.onOptionsItemSelected (item);
-    }
-
-    private void performeFilter () {
-        FilterDialogFragment filterDialogFragment = new FilterDialogFragment (sApiService.getRooms ());
-        filterDialogFragment.show (getSupportFragmentManager (), "Filter");
-    }
 
 
     @Subscribe
     public void onDeleteMeeting(DeleteMeetingEvent event) {
-
 
     }
 
@@ -118,7 +134,6 @@ public class ListMeetingActivity extends AppCompatActivity implements FilterDial
         mItemMeetingRecyclerViewAdapter = new ItemMeetingRecyclerViewAdapter(getApplicationContext (), date, room);
         mRecyclerView.setAdapter(mItemMeetingRecyclerViewAdapter);
     }
-
 
     @Override
     public void onButtonClicked (Calendar date, String room, boolean reset) {

@@ -71,6 +71,7 @@ public class FilterDialogFragment extends DialogFragment {
 
         @SuppressLint("InflateParams")
         View view = inflater.inflate(R.layout.filter, null);
+
         ButterKnife.bind(this, view);
 
         mRoomFilter.setAdapter(new ArrayAdapter<> (Objects.requireNonNull(getContext()), R.layout.room_item, mRooms));

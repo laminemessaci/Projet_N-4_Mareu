@@ -46,4 +46,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
     androidTestImplementation 'junit:junit:4.12'
     implementation 'androidx.mediarouter:mediarouter:1.1.0'
+    implementation 'com.google.android.gms:play-services-ads:19.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
 }
