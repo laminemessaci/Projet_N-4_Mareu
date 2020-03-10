@@ -5,6 +5,7 @@ import android.graphics.Color;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 /**
  * Created by Lamine MESSACI on 28/02/2020.
@@ -77,8 +78,13 @@ public class Meeting {
     }
 
     private void setParticipants(List<String> participants) {
+        String email_pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+        Pattern pattern = Pattern.compile(email_pattern, Pattern.CASE_INSENSITIVE);
 
-
-        //TO DO
+        for (String participant : participants) {
+            if (pattern.matcher(participant).matches()) {
+                mParticipants.add(participant);
+            }
+        }
     }
 }

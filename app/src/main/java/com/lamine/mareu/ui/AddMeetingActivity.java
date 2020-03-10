@@ -4,10 +4,14 @@ package com.lamine.mareu.ui;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +47,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import butterknife.OnTouch;
 
 import static com.lamine.mareu.ui.ListMeetingActivity.sApiService;
@@ -89,7 +94,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
     private void configureToolbar(){
-        Toolbar toolbar = (Toolbar) findViewById (R.id.activity_main_toolbar);
+        Toolbar toolbar = findViewById (R.id.activity_main_toolbar);
         setSupportActionBar (toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -337,5 +342,65 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
             return lEmails;
         }
+    }
+
+    private void initEmailsOnKeyListener() {
+        mEmailsTextInputEditText.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    String value = Objects.requireNonNull(mEmailsTextInputEditText.getText()).toString().trim();
+
+                    if (!value.isEmpty()) {
+                        if (!validEmail(value)) {
+                            mEmailsTextInputLayout.setError(getText(R.string.error_invalid_email));
+
+                            return false;
+                        } else {
+                            addEmailToChipGroup(value);
+
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        });
+    }
+
+    @OnTextChanged(R.id.emails)
+    void afterTextChanged(Editable s) {
+        String value = s.toString();
+
+        if (value.length() > 0) {
+            char lastChar = value.charAt(value.length() - 1);
+
+            if (lastChar == ' ' || lastChar == ',') {
+                value = value.substring(0, value.length() - 1);
+                value = value.trim();
+
+                if (!value.isEmpty()) {
+                    if (!validEmail(value)) {
+                        mEmailsTextInputLayout.setError(getText(R.string.error_invalid_email));
+                    } else {
+                        addEmailToChipGroup(value);
+                    }
+                }
+            }
+        }
+    }
+
+    private void addEmailToChipGroup(String email) {
+        final Chip emailChip = new Chip(AddMeetingActivity.this);
+        emailChip.setText(email);
+        emailChip.setCloseIconVisible(true);
+        emailChip.setOnCloseIconClickListener(v -> mEmailsChipGroup.removeView(emailChip));
+
+        mEmailsChipGroup.addView(emailChip);
+        mEmailsTextInputEditText.setText("");
+        mEmailsTextInputLayout.setError(null);
+    }
+
+    public static boolean validEmail(String value) {
+        return Patterns.EMAIL_ADDRESS.matcher(value.trim()).matches();
     }
 }
