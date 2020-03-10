@@ -51,9 +51,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     private Calendar mNow;
     private   boolean mError;
-
     private List<String> mRooms;
-
 
     @BindView(R.id.room_name_layout) TextInputLayout mRoomNameTextInputLayout;
     @BindView(R.id.room_name) AutoCompleteTextView mRoomNameAutoCompleteTextView;
@@ -74,7 +72,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     @BindView(R.id.emails)
     TextInputEditText mEmailsTextInputEditText;
 
-    @SuppressLint("ClickableViewAccessibility")
+
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
@@ -87,6 +85,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         // Meeting room Array of rooms
         mRoomNameAutoCompleteTextView.setAdapter(new ArrayAdapter<> (this, R.layout.room_item, mRooms));
         this.configureToolbar ();
+
     }
 
     private void configureToolbar(){
@@ -144,15 +143,12 @@ public class AddMeetingActivity extends AppCompatActivity {
         DatePickerDialog mDatePickerDialog;
 
         mDatePickerDialog = new DatePickerDialog(AddMeetingActivity.this,
-                new DatePickerDialog.OnDateSetListener () {
-                    @Override
-                    public void onDateSet (DatePicker view, int year, int month, int dayOfMonth) {
-                        Calendar cal = Calendar.getInstance ();
-                        cal.set (year, month, dayOfMonth);
-                        mDateTextInputEditText.setText (DateFormat.getDateFormat (AddMeetingActivity.this.getApplicationContext ()).format (cal.getTime ()));
-                        if (cal.before (calendar)) {
-                            mDateTextInputLayout.setError (AddMeetingActivity.this.getText (R.string.error_date_passed));
-                        }
+                (view, year, month, dayOfMonth) -> {
+                    Calendar cal = Calendar.getInstance ();
+                    cal.set (year, month, dayOfMonth);
+                    mDateTextInputEditText.setText (DateFormat.getDateFormat (AddMeetingActivity.this.getApplicationContext ()).format (cal.getTime ()));
+                    if (cal.before (calendar)) {
+                        mDateTextInputLayout.setError (AddMeetingActivity.this.getText (R.string.error_date_passed));
                     }
                 },
                 calendar.get(Calendar.YEAR),
@@ -189,7 +185,157 @@ public class AddMeetingActivity extends AppCompatActivity {
         mTimePickerDialog.show();
     }
 
-    private void addMeeting(){};
+    /*
+    ** Verification of user input and Add Meeting if all entries are OK
+     */
+    private void addMeeting(){
+        String roomName = validateTextInput(mRoomNameTextInputLayout);
+        String topic = validateTextInput(mTopicTextInputLayout);
+        Calendar date = validateDateInput(mDateTextInputLayout);
+        Calendar start = validateTimeInput(mStartTimeTextInputLayout);
+        Calendar end = validateTimeInput(mEndTimeTextInputLayout);
+        List<String> participants = validateEmailInput(mEmailsTextInputLayout, mEmailsChipGroup);
 
+        if (start != null && end != null) {
+            if (end.before(start)) {
+                mEndTimeTextInputLayout.setError(getText(R.string.error_time_comparaison));
+                mError = true;
+            }
+        }
 
+        if (date != null && start != null) {
+            start.set(Calendar.YEAR, date.get(Calendar.YEAR));
+            start.set(Calendar.MONTH, date.get(Calendar.MONTH));
+            start.set(Calendar.DAY_OF_MONTH, date.get(Calendar.DAY_OF_MONTH));
+
+            if (start.before(mNow)) {
+                mStartTimeTextInputLayout.setError(getText(R.string.error_time_passed));
+                mError = true;
+            }
+        }
+
+        if (date != null && end != null) {
+            end.set(Calendar.YEAR, date.get(Calendar.YEAR));
+            end.set(Calendar.MONTH, date.get(Calendar.MONTH));
+            end.set(Calendar.DAY_OF_MONTH, date.get(Calendar.DAY_OF_MONTH));
+        }
+
+        if (mError) {
+            Toast.makeText(this.getApplicationContext(), R.string.error_add_new_meeting, Toast.LENGTH_LONG).show();
+            mError = false;
+        } else {
+            try {
+                sApiService.addMeeting(new Meeting(roomName, start, end, topic, participants));
+
+                Toast.makeText(this.getApplicationContext(), R.string.add_new_meeting, Toast.LENGTH_LONG).show();
+
+                finish();
+            } catch (MeetingApiServiceException e) {
+                mRoomNameTextInputLayout.setError(getText(R.string.error_meeting_room_already_booked));
+                Toast.makeText(this.getApplicationContext(), R.string.error_meeting_room_already_booked, Toast.LENGTH_LONG).show();
+                mError = false;
+            }
+        }
+
+    };
+
+    private String validateTextInput(TextInputLayout inputValue) {
+        String tmpValue = Objects.requireNonNull(inputValue.getEditText()).getText().toString().trim();
+
+        if (tmpValue.isEmpty()) {
+            inputValue.setError(getText(R.string.error_empty_field));
+            mError = true;
+            return null;
+        } else {
+            inputValue.setError(null);
+            return tmpValue;
+        }
+    }
+
+    private Calendar validateDateInput(TextInputLayout inputValue) {
+        String tmpValue = Objects.requireNonNull(inputValue.getEditText()).getText().toString().trim();
+
+        if (tmpValue.isEmpty()) {
+            inputValue.setError(getText(R.string.error_empty_field));
+            mError = true;
+            return null;
+        } else {
+            // valid date format ?
+            try {
+                Date dDate = DateFormat.getDateFormat(getApplicationContext()).parse(tmpValue);
+
+                Calendar now = Calendar.getInstance();
+                now.set(Calendar.HOUR_OF_DAY, 0);
+                now.set(Calendar.MINUTE, 0);
+                now.set(Calendar.SECOND, 0);
+                now.set(Calendar.MILLISECOND, 0);
+
+                Calendar date = (Calendar) now.clone();
+                date.setTime(Objects.requireNonNull(dDate));
+
+                if (date.before(now)) {
+                    inputValue.setError(getText(R.string.error_date_passed));
+                    mError = true;
+                    return null;
+                }
+
+                inputValue.setError(null);
+
+                return date;
+            } catch (ParseException e) {
+                inputValue.setError(getText(R.string.error_invalid_date_format));
+                mError = true;
+                return null;
+            }
+        }
+    }
+
+    private Calendar validateTimeInput(TextInputLayout inputValue) {
+        String tmpValue = Objects.requireNonNull(inputValue.getEditText()).getText().toString().trim();
+
+        if (tmpValue.isEmpty()) {
+            inputValue.setError(getText(R.string.error_empty_field));
+            mError = true;
+            return null;
+        } else {
+            // valid time format ?
+            try {
+                Date dTime = android.text.format.DateFormat.getTimeFormat(getApplicationContext()).parse(tmpValue);
+                Calendar time = Calendar.getInstance();
+                time.setTime(Objects.requireNonNull(dTime));
+
+                time.set(Calendar.YEAR, mNow.get(Calendar.YEAR));
+                time.set(Calendar.MONTH, mNow.get(Calendar.MONTH));
+                time.set(Calendar.DAY_OF_MONTH, mNow.get(Calendar.DAY_OF_MONTH));
+
+                inputValue.setError(null);
+
+                return time;
+            } catch (ParseException e) {
+                inputValue.setError(getText(R.string.error_invalid_time_format));
+                mError = true;
+                return null;
+            }
+        }
+    }
+
+    private List<String> validateEmailInput(TextInputLayout inputValue, ChipGroup emails) {
+        inputValue.setError(null);
+        int nb = emails.getChildCount();
+        List<String> lEmails = new ArrayList<>();
+
+        if (nb == 0) {
+            inputValue.setError(getText(R.string.error_empty_field));
+            mError = true;
+            return null;
+        } else {
+            for (int i = 0; i < nb; i++) {
+                Chip tmpEmail = (Chip) emails.getChildAt(i);
+                String email = tmpEmail.getText().toString();
+
+                lEmails.add(email);
+            }
+            return lEmails;
+        }
+    }
 }
