@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lamine.mareu.R;
@@ -44,15 +43,12 @@ public class ListMeetingActivity extends AppCompatActivity implements FilterDial
 
         ButterKnife.bind (this);
 
-
         sApiService = DI.getApiService ();
 
-        mFloatingActionButton.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick (View v) {
-                ListMeetingActivity.this.startActivity (new Intent (ListMeetingActivity.this, AddMeetingActivity.class));
-            }
-        });
+        mFloatingActionButton.setOnClickListener (v ->
+                ListMeetingActivity.this.startActivity
+                        (new Intent (ListMeetingActivity.this,
+                                AddMeetingActivity.class)));
 
      this.configureToolbar ();
 
@@ -120,8 +116,6 @@ public class ListMeetingActivity extends AppCompatActivity implements FilterDial
         getMenuInflater().inflate(R.menu.menu_filter, menu);
         return true;
     }
-
-
 
     @Subscribe
     public void onDeleteMeeting(DeleteMeetingEvent event) {

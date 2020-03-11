@@ -80,7 +80,8 @@ public class AddMeetingActivity extends AppCompatActivity {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_add_meeting);
         ButterKnife.bind (this);
-
+        mError = false;
+        mNow = Calendar.getInstance();
         // Meeting room
         mRooms = sApiService.getRooms();
 
@@ -89,9 +90,9 @@ public class AddMeetingActivity extends AppCompatActivity {
         this.configureToolbar ();
 
 
-        // Meeting participants -->
+        // Meeting participants
         initEmailsOnKeyListener();
-        // Meeting participants <--
+
 
     }
 
@@ -231,12 +232,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             mError = false;
         } else {
             try {
-                sApiService.addMeeting(new Meeting(
-                        roomName,
-                        start,
-                        end,
-                        topic,
-                        participants));
+                sApiService.addMeeting(new Meeting(roomName, start, end, topic, participants));
 
                 Toast.makeText(this.getApplicationContext(), R.string.add_new_meeting, Toast.LENGTH_LONG).show();
 

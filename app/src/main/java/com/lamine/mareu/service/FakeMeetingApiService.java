@@ -51,7 +51,7 @@ public class FakeMeetingApiService implements MeetingApiService {
 
     @Override
     public List<Meeting> getMeetings(Calendar date, String roomName) {
-        //TO DO
+
         if (date != null && roomName != null && !roomName.isEmpty())
             return getMeetingsMatchDate(date, getMeetingsMatchRoomName(roomName, mMeetings));
         else if (date != null)
