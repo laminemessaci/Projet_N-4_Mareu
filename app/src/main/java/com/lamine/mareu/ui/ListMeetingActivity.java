@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lamine.mareu.R;
 import com.lamine.mareu.di.DI;
 import com.lamine.mareu.events.DeleteMeetingEvent;
 import com.lamine.mareu.service.MeetingApiService;
+import com.lamine.mareu.service.MeetingApiServiceException;
 import com.lamine.mareu.ui.fragments.FilterDialogFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -118,8 +120,10 @@ public class ListMeetingActivity extends AppCompatActivity implements FilterDial
     }
 
     @Subscribe
-    public void onDeleteMeeting(DeleteMeetingEvent event) {
-
+    public void onDeleteMeeting(DeleteMeetingEvent event) throws MeetingApiServiceException {
+        sApiService.delMeeting(event.getMeetingId());
+        Toast.makeText(getApplicationContext(), "The Meeting has been deleted", Toast.LENGTH_SHORT).show();
+        init(null, "");
     }
 
 
