@@ -4,14 +4,11 @@ package com.lamine.mareu.ui;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.format.DateFormat;
-import android.util.Log;
-import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,8 +16,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.DatePicker;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 
@@ -50,7 +45,9 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.OnTouch;
 
+import static com.lamine.mareu.Validator.validEmail;
 import static com.lamine.mareu.ui.ListMeetingActivity.sApiService;
+
 
 public class AddMeetingActivity extends AppCompatActivity {
 
@@ -77,9 +74,9 @@ public class AddMeetingActivity extends AppCompatActivity {
     @BindView(R.id.emails)
     TextInputEditText mEmailsTextInputEditText;
 
-
+    @SuppressLint("ClickableViewAccessibility")
     @Override
-    protected void onCreate (Bundle savedInstanceState) {
+    public void onCreate (Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_add_meeting);
         ButterKnife.bind (this);
@@ -90,6 +87,11 @@ public class AddMeetingActivity extends AppCompatActivity {
         // Meeting room Array of rooms
         mRoomNameAutoCompleteTextView.setAdapter(new ArrayAdapter<> (this, R.layout.room_item, mRooms));
         this.configureToolbar ();
+
+
+        // Meeting participants -->
+        initEmailsOnKeyListener();
+        // Meeting participants <--
 
     }
 
@@ -137,7 +139,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         }
         return (event.getAction() == MotionEvent.ACTION_UP);
     }
-
 
     /**
      * this will display the calendar on touching TextInputEditText(date)
@@ -193,7 +194,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     /*
     ** Verification of user input and Add Meeting if all entries are OK
      */
-    private void addMeeting(){
+    private void addMeeting() {
         String roomName = validateTextInput(mRoomNameTextInputLayout);
         String topic = validateTextInput(mTopicTextInputLayout);
         Calendar date = validateDateInput(mDateTextInputLayout);
@@ -230,7 +231,12 @@ public class AddMeetingActivity extends AppCompatActivity {
             mError = false;
         } else {
             try {
-                sApiService.addMeeting(new Meeting(roomName, start, end, topic, participants));
+                sApiService.addMeeting(new Meeting(
+                        roomName,
+                        start,
+                        end,
+                        topic,
+                        participants));
 
                 Toast.makeText(this.getApplicationContext(), R.string.add_new_meeting, Toast.LENGTH_LONG).show();
 
@@ -241,8 +247,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                 mError = false;
             }
         }
-
-    };
+    }
 
     private String validateTextInput(TextInputLayout inputValue) {
         String tmpValue = Objects.requireNonNull(inputValue.getEditText()).getText().toString().trim();
@@ -367,6 +372,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
+
     @OnTextChanged(R.id.emails)
     void afterTextChanged(Editable s) {
         String value = s.toString();
@@ -391,16 +397,15 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     private void addEmailToChipGroup(String email) {
         final Chip emailChip = new Chip(AddMeetingActivity.this);
+        Drawable drawable = getResources().getDrawable(R.drawable.participant);
+        emailChip.setChipIcon(drawable);
+        emailChip.getChipIcon();
         emailChip.setText(email);
-        emailChip.setCloseIconVisible(true);
+        emailChip.setCloseIconEnabled(true);
         emailChip.setOnCloseIconClickListener(v -> mEmailsChipGroup.removeView(emailChip));
-
+        emailChip.getChipIcon();
         mEmailsChipGroup.addView(emailChip);
         mEmailsTextInputEditText.setText("");
         mEmailsTextInputLayout.setError(null);
-    }
-
-    public static boolean validEmail(String value) {
-        return Patterns.EMAIL_ADDRESS.matcher(value.trim()).matches();
     }
 }
