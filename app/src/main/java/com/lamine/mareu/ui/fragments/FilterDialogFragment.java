@@ -114,20 +114,17 @@ public class FilterDialogFragment extends DialogFragment {
      * OnClick on our date_filter witch display Calendar for getting our date filter
      */
 
-    @OnTouch(R.id.date_filter)
+    @OnClick(R.id.date_filter)
     void displayDatePicker() {
         Calendar calendar = Calendar.getInstance();
         DatePickerDialog mDatePickerDialog;
 
         mDatePickerDialog = new DatePickerDialog(Objects.requireNonNull(getContext()),
-                new DatePickerDialog.OnDateSetListener () {
-                    @Override
-                    public void onDateSet (DatePicker view, int year, int month, int dayOfMonth) {
-                        Calendar cal = Calendar.getInstance ();
-                        cal.set (year, month, dayOfMonth);
-                        mDateFilter.setText (DateFormat.getDateFormat (FilterDialogFragment.this.getContext ()).format (cal.getTime ()));
-                        mDate = cal;
-                    }
+                (view, year, month, dayOfMonth) -> {
+                    Calendar cal = Calendar.getInstance ();
+                    cal.set (year, month, dayOfMonth);
+                    mDateFilter.setText (DateFormat.getDateFormat (FilterDialogFragment.this.getContext ()).format (cal.getTime ()));
+                    mDate = cal;
                 },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
