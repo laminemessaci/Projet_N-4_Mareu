@@ -1,11 +1,11 @@
-package com.lamine.mareu;
+package com.lamine.mareu.utils;
 
 import java.util.Calendar;
 
 /**
  * Created by Lamine MESSACI on 10/03/2020.
  */
-public class CalendarUtil {
+public class DateUtil {
 
     public static boolean sameDate(Calendar firstDate, Calendar secondDate) {
         if (firstDate.get(Calendar.YEAR) == secondDate.get(Calendar.YEAR))

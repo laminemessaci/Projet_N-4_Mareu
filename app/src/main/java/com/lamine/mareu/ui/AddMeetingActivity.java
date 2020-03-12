@@ -45,7 +45,7 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.OnTouch;
 
-import static com.lamine.mareu.Validator.validEmail;
+import static com.lamine.mareu.utils.Validator.validEmail;
 import static com.lamine.mareu.ui.ListMeetingActivity.sApiService;
 
 

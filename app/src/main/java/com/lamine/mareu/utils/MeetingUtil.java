@@ -1,4 +1,4 @@
-package com.lamine.mareu;
+package com.lamine.mareu.utils;
 
 import com.lamine.mareu.model.Meeting;
 
@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-import static com.lamine.mareu.CalendarUtil.sameDate;
+import static com.lamine.mareu.utils.DateUtil.sameDate;
 
 /**
  * Created by Lamine MESSACI on 10/03/2020.

@@ -1,4 +1,4 @@
-package com.lamine.mareu;
+package com.lamine.mareu.utils;
 
 import android.content.Context;
 import android.util.Patterns;

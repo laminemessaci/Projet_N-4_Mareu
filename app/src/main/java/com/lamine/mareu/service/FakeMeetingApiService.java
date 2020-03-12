@@ -8,8 +8,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-import static com.lamine.mareu.MeetingUtil.getMeetingsMatchDate;
-import static com.lamine.mareu.MeetingUtil.getMeetingsMatchRoomName;
+import static com.lamine.mareu.utils.MeetingUtil.getMeetingsMatchDate;
+import static com.lamine.mareu.utils.MeetingUtil.getMeetingsMatchRoomName;
 
 /**
  * Created by Lamine MESSACI on 28/02/2020.

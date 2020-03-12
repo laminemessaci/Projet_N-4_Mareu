@@ -27,6 +27,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Created by Lamine MESSACI on 28/02/2020.
+ */
+
 public class ListMeetingActivity extends AppCompatActivity implements FilterDialogFragment.OnButtonClickedListener {
 
     public static MeetingApiService sApiService;
@@ -105,7 +109,6 @@ public class ListMeetingActivity extends AppCompatActivity implements FilterDial
         EventBus.getDefault ().unregister (this);
         super.onStop ();
     }
-
 
     /**
      * display menu
