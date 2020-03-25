@@ -69,10 +69,8 @@ public class AddMeetingActivity extends AppCompatActivity {
     @BindView(R.id.to) TextInputEditText mEndTimeTextInputEditText;
 
     @BindView(R.id.participants) TextInputLayout mEmailsTextInputLayout;
-    @BindView(R.id.emails_group)
-    ChipGroup mEmailsChipGroup;
-    @BindView(R.id.emails)
-    TextInputEditText mEmailsTextInputEditText;
+    @BindView(R.id.emails_group) ChipGroup mEmailsChipGroup;
+    @BindView(R.id.emails) TextInputEditText mEmailsTextInputEditText;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override

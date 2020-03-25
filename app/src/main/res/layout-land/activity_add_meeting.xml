@@ -1,158 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_add_white"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context=".ui.AddMeetingActivity"
-        >
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            tools:context=".ui.AddMeetingActivity">
+            android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/activity_main_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:titleTextColor="@android:color/white" />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                tools:context=".ui.AddMeetingActivity">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/room_name_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="16dp"
-                app:errorEnabled="true">
-            <AutoCompleteTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/room_name"
-                android:hint="Meeting room name"
-                android:inputType="text"
-                android:cursorVisible="false"
-                style="@style/Widget.AppCompat.Spinner.Underlined"
-                android:textSize="18sp"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/topic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="16dp"
-                app:errorEnabled="true">
-                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/room_name_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/meeting_topic"
-                    android:hint="Meeting topic"
-                    android:inputType="text"
-                    android:cursorVisible="false"
-                    android:textSize="18sp"/>
+                    android:layout_margin="16dp"
+                    android:layout_weight="1"
+                    app:errorEnabled="true">
+
+                <AutoCompleteTextView
+                        android:id="@+id/room_name"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="false"
+                        android:hint="Meeting room name"
+                        android:inputType="text"
+                        android:textSize="18sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
 
-         </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/topic_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_weight="1"
+                    app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/topic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="false"
+                        android:hint="Meeting topic"
+                        android:inputType="text"
+                        android:textSize="18sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </LinearLayout>
 
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:baselineAligned="false">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/date_layout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                app:errorEnabled="true"
-                android:layout_margin="16dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/Date"
-                    android:layout_width="match_parent"
+                    android:id="@+id/date_layout"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:inputType="date"
-                    android:cursorVisible="false"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:hint="Date"/>
+                    android:layout_margin="16dp"
+                    android:layout_weight="2"
+                    app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:hint="Date"
+                        android:inputType="date" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/from_layout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_input_layout_margin"
-                android:layout_weight="1"
-                app:errorEnabled="true">
+                    android:id="@+id/from_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_input_layout_margin"
+                    android:layout_weight="1"
+                    app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/from"
-                    android:hint="@string/from"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="time"
-                    android:cursorVisible="false"
-                    android:clickable="false"
-                    android:focusable="false" />
+                        android:id="@+id/from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:hint="@string/from"
+                        android:inputType="time" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/to_layout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_input_layout_margin"
-                android:layout_weight="1"
-                app:errorEnabled="true">
+                    android:id="@+id/to_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_input_layout_margin"
+                    android:layout_weight="1"
+                    app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/to"
-                    android:hint="@string/to"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="time"
-                    android:cursorVisible="false"
-                    android:clickable="false"
-                    android:focusable="false" />
+                        android:id="@+id/to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:hint="@string/to"
+                        android:inputType="time" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/participants"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_input_layout_margin"
-            app:errorEnabled="true">
+                android:id="@+id/participants"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_input_layout_margin"
+                app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emails"
-                android:hint="@string/list_of_participants"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                    android:id="@+id/emails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/list_of_participants"
+                    android:inputType="textEmailAddress" />
 
             <com.google.android.material.chip.ChipGroup
-                android:id="@+id/emails_group"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/chip_group_top_margin" />
+                    android:id="@+id/emails_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/chip_group_top_margin" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
 
-     </LinearLayout>
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
-</ScrollView>
+
+
+
 
 
 
