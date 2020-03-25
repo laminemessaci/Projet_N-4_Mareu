@@ -24,6 +24,9 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.lamine.mareu.R;
+import com.lamine.mareu.events.FiltersUpdatesEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Calendar;
 import java.util.List;
@@ -48,13 +51,13 @@ public class FilterDialogFragment extends DialogFragment {
     private String mRoom;
 
     //callback
-    private OnButtonClickedListener mCallback;
+    //private OnButtonClickedListener mCallback;
     //contrat
-    public interface OnButtonClickedListener{
-        void onButtonClicked(Calendar date, String room, boolean reset);
-    }
+    //public interface OnButtonClickedListener{
+      //  void onButtonClicked(Calendar date, String room, boolean reset);
+    //}
 
-    //contructor
+    //constructor
 
     public FilterDialogFragment (List<String> rooms) {
         mRooms = rooms;
@@ -83,7 +86,8 @@ public class FilterDialogFragment extends DialogFragment {
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener () {
             @Override
             public void onClick (DialogInterface dialog, int which) {
-                mCallback.onButtonClicked (mDate, mRoomFilter.getEditableText ().toString (), false);
+                //mCallback.onButtonClicked (mDate, mRoomFilter.getEditableText ().toString (), false);
+                EventBus.getDefault().post(new FiltersUpdatesEvent(mDate, mRoomFilter.getEditableText ().toString (), false));
             }
         });
 
@@ -99,16 +103,17 @@ public class FilterDialogFragment extends DialogFragment {
         builder.setNeutralButton(R.string.reset, new DialogInterface.OnClickListener () {
             @Override
             public void onClick (DialogInterface dialog, int which) {
-                mCallback.onButtonClicked (mDate, mRoomFilter.getEditableText ().toString (), true);
+                //mCallback.onButtonClicked (mDate, mRoomFilter.getEditableText ().toString (), true);
+                EventBus.getDefault().post(new FiltersUpdatesEvent(mDate, mRoomFilter.getEditableText ().toString (),true));
             }
         });
 
         return builder.create ();
     }
 
-    private void createCallbackToParentActivity() {
-        mCallback = (OnButtonClickedListener) getActivity();
-    }
+    //private void createCallbackToParentActivity() {
+       // mCallback = (OnButtonClickedListener) getActivity();
+    //}
 
     /**
      * OnClick on our date_filter witch display Calendar for getting our date filter
@@ -150,10 +155,10 @@ public class FilterDialogFragment extends DialogFragment {
     }
 
     //in this method we are sure of the attachment so we make a callback
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
-        createCallbackToParentActivity();
-    }
+    //@Override
+    //public void onAttach(@NonNull Context context) {
+    //    super.onAttach(context);
+//
+    //    createCallbackToParentActivity();
+    //}
 }

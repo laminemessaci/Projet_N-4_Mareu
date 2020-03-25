@@ -3,13 +3,17 @@ package com.lamine.mareu.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+
+
 import android.view.MenuItem;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lamine.mareu.R;
 import com.lamine.mareu.di.DI;
 import com.lamine.mareu.events.DeleteMeetingEvent;
+import com.lamine.mareu.events.FiltersUpdatesEvent;
 import com.lamine.mareu.service.MeetingApiService;
 import com.lamine.mareu.service.MeetingApiServiceException;
 import com.lamine.mareu.ui.fragments.FilterDialogFragment;
@@ -21,6 +25,7 @@ import java.util.Calendar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,7 +36,7 @@ import butterknife.ButterKnife;
  * Created by Lamine MESSACI on 28/02/2020.
  */
 
-public class ListMeetingActivity extends AppCompatActivity implements FilterDialogFragment.OnButtonClickedListener {
+public class ListMeetingActivity extends AppCompatActivity {
 
     public static MeetingApiService sApiService;
 
@@ -119,14 +124,35 @@ public class ListMeetingActivity extends AppCompatActivity implements FilterDial
     public boolean onCreateOptionsMenu(Menu menu)
     {
         getMenuInflater().inflate(R.menu.menu_filter, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mItemMeetingRecyclerViewAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
         return true;
     }
-
     @Subscribe
     public void onDeleteMeeting(DeleteMeetingEvent event) throws MeetingApiServiceException {
         sApiService.delMeeting(event.getMeetingId());
         Toast.makeText(getApplicationContext(), "The Meeting has been deleted", Toast.LENGTH_SHORT).show();
         init(null, "");
+    }
+
+    @Subscribe
+    public void OnFiltersUpdates(FiltersUpdatesEvent event){
+
+        if (event.reset || event.date != null || ! event.room.isEmpty ())
+            init (event.date, event.room);
     }
 
 
@@ -136,10 +162,10 @@ public class ListMeetingActivity extends AppCompatActivity implements FilterDial
         mRecyclerView.setAdapter(mItemMeetingRecyclerViewAdapter);
     }
 
-    @Override
-    public void onButtonClicked (Calendar date, String room, boolean reset) {
-        if (reset || date != null || ! room.isEmpty ())
-            init (date, room);
-
-    }
+    //@Override
+    //public void onButtonClicked (Calendar date, String room, boolean reset) {
+    //    if (reset || date != null || ! room.isEmpty ())
+    //        init (date, room);
+//
+    //}
 }
