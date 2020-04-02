@@ -82,7 +82,7 @@ Le développement de l'application :
 
 Afficher la liste des réunions. Voici le prototype :  
 
-![prototype de la fonctionnalité "afficher la liste des réunions"](MaReu_v0.1.png)  
+![MaReu_v0 1](https://user-images.githubusercontent.com/60298344/78250742-9b9dbb00-74f0-11ea-98a3-0849a1d5a596.png)
 
 Une réunion est représentée par la classe `Meeting` (nous 
 n'affichons que les attributs) :  
