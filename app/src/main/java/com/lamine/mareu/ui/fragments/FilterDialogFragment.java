@@ -83,29 +83,18 @@ public class FilterDialogFragment extends DialogFragment {
         builder.setTitle(R.string.select_filter);
 
         //Button to confirm the choice and validation "ok"
-        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener () {
-            @Override
-            public void onClick (DialogInterface dialog, int which) {
-                //mCallback.onButtonClicked (mDate, mRoomFilter.getEditableText ().toString (), false);
-                EventBus.getDefault().post(new FiltersUpdatesEvent(mDate, mRoomFilter.getEditableText ().toString (), false));
-            }
+        builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+            //mCallback.onButtonClicked (mDate, mRoomFilter.getEditableText ().toString (), false);
+            EventBus.getDefault().post(new FiltersUpdatesEvent(mDate, mRoomFilter.getEditableText ().toString (), false));
         });
 
         //Button to cancel the choice "cancel"
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener () {
-            @Override
-            public void onClick (DialogInterface dialog, int which) {
-                dialog.dismiss ();
-            }
-        });
+        builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.dismiss ());
 
         //Button to reset "reset"
-        builder.setNeutralButton(R.string.reset, new DialogInterface.OnClickListener () {
-            @Override
-            public void onClick (DialogInterface dialog, int which) {
-                //mCallback.onButtonClicked (mDate, mRoomFilter.getEditableText ().toString (), true);
-                EventBus.getDefault().post(new FiltersUpdatesEvent(mDate, mRoomFilter.getEditableText ().toString (),true));
-            }
+        builder.setNeutralButton(R.string.reset, (dialog, which) -> {
+            //mCallback.onButtonClicked (mDate, mRoomFilter.getEditableText ().toString (), true);
+            EventBus.getDefault().post(new FiltersUpdatesEvent(mDate, mRoomFilter.getEditableText ().toString (),true));
         });
 
         return builder.create ();

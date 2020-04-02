@@ -16,13 +16,14 @@
     android:background="?attr/colorPrimary"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager"
-        tools:context=".ui.ListMeetingActivity"
-        android:layout_marginTop="?attr/actionBarSize"
-        tools:listitem="@layout/meeting_item" />
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:longClickable="false"
+            app:layoutManager="LinearLayoutManager"
+            tools:context=".ui.ListMeetingActivity"
+            tools:listitem="@layout/meeting_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add"

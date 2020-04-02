@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.lamine.mareu.R;
@@ -71,6 +72,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     @BindView(R.id.participants) TextInputLayout mEmailsTextInputLayout;
     @BindView(R.id.emails_group) ChipGroup mEmailsChipGroup;
     @BindView(R.id.emails) TextInputEditText mEmailsTextInputEditText;
+    @BindView(R.id.add_meeting) FloatingActionButton mfloatingActionButton ;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -87,7 +89,8 @@ public class AddMeetingActivity extends AppCompatActivity {
         mRoomNameAutoCompleteTextView.setAdapter(new ArrayAdapter<> (this, R.layout.room_item, mRooms));
         this.configureToolbar ();
 
-
+        //Add meeting action
+        mfloatingActionButton.setOnClickListener(v -> addMeeting());
         // Meeting participants
         initEmailsOnKeyListener();
 
@@ -102,6 +105,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     }
 
+    /*
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
         getMenuInflater ().inflate (R.menu.menu_add_meeting, menu);
@@ -120,9 +124,11 @@ public class AddMeetingActivity extends AppCompatActivity {
                 goHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(goHomeIntent);
         }
-        return super.onOptionsItemSelected(item);
+        //return super.onOptionsItemSelected(item);
 
     }
+
+     */
 
     /**
      * scrolling menu for choice Room

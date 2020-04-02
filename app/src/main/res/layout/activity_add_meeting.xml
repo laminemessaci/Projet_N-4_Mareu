@@ -4,7 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="match_parent" >
+
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
             android:id="@+id/activity_main_toolbar"
@@ -12,143 +17,164 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:titleTextColor="@android:color/white" />
-
-    <LinearLayout
-            android:id="@+id/linearLayout"
+    <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="55dp"
-            android:orientation="vertical"
-            tools:context=".ui.AddMeetingActivity">
-
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/room_name_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_input_layout_margin"
-                app:errorEnabled="true">
-
-            <AutoCompleteTextView
-                    android:id="@+id/room_name"
-                    style="@style/Widget.AppCompat.Spinner.Underlined"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:cursorVisible="false"
-                    android:hint="@string/meeting_room_name"
-                    android:inputType="text"
-                    android:textSize="@dimen/text_view_spinner_size" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/topic_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_input_layout_margin"
-                app:errorEnabled="true">
-
-            <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/topic"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/meeting_topic"
-                    android:inputType="text" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/date_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_input_layout_margin"
-                app:errorEnabled="true">
-
-            <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:cursorVisible="false"
-                    android:focusable="false"
-                    android:hint="@string/date"
-                    android:inputType="date" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="match_parent">
 
         <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                tools:context=".ui.AddMeetingActivity">
 
             <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/from_layout"
+                    android:id="@+id/room_name_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/text_input_layout_margin"
-                    android:layout_weight="1"
+                    app:errorEnabled="true">
+
+                <AutoCompleteTextView
+                        android:id="@+id/room_name"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/meeting_room_name"
+                        android:inputType="text"
+                        android:textSize="@dimen/text_view_spinner_size" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/topic_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_input_layout_margin"
                     app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/from"
+                        android:id="@+id/topic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/meeting_topic"
+                        android:inputType="text"
+                        tools:visibility="visible" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/date_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_input_layout_margin"
+                    app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clickable="false"
                         android:cursorVisible="false"
                         android:focusable="false"
-                        android:hint="@string/from"
-                        android:inputType="time" />
+                        android:hint="@string/date"
+                        android:inputType="date"
+                        tools:visibility="visible" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/from_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_input_layout_margin"
+                        android:layout_weight="1"
+                        app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/from"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:hint="@string/from"
+                            android:inputType="time"
+                            tools:visibility="visible" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/to_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_input_layout_margin"
+                        android:layout_weight="1"
+                        app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/to"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:hint="@string/to"
+                            android:inputType="time"
+                            tools:visibility="visible" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
             <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/to_layout"
+                    android:id="@+id/participants"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/text_input_layout_margin"
-                    android:layout_weight="1"
                     app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/to"
+                        android:id="@+id/emails"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:clickable="false"
-                        android:cursorVisible="false"
-                        android:focusable="false"
-                        android:hint="@string/to"
-                        android:inputType="time" />
+                        android:hint="@string/list_of_participants"
+                        android:inputType="textEmailAddress"
+                        tools:visibility="visible" />
+
+                <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/emails_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/chip_group_top_margin" />
+
 
             </com.google.android.material.textfield.TextInputLayout>
+
 
         </LinearLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/participants"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_input_layout_margin"
-                app:errorEnabled="true">
+    </ScrollView>
 
-            <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/emails"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/list_of_participants"
-                    android:inputType="textEmailAddress" />
-
-            <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/emails_group"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/chip_group_top_margin" />
+</LinearLayout>
 
 
-        </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_meeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:focusable="auto"
+            android:src="@android:drawable/ic_menu_save" />
 
-
-    </LinearLayout>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

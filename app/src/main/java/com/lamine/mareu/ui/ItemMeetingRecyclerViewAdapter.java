@@ -3,6 +3,7 @@ package com.lamine.mareu.ui;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import java.util.Collection;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import static com.lamine.mareu.ui.ListMeetingActivity.sApiService;
@@ -62,7 +64,8 @@ public class ItemMeetingRecyclerViewAdapter extends RecyclerView.Adapter<ItemMee
         @SuppressLint ("SimpleDateFormat")
         String desc = TextUtils.join(" - ", Arrays.asList (
                 meeting.getRoomName (),
-                DateFormat.getTimeInstance().format(meeting.getStart ().getTime ()),
+                //DateFormat.getTimeInstance().format(meeting.getStart ().getTime ()),
+                DateFormat.getTimeInstance(DateFormat.SHORT).format(meeting.getStart ().getTime()),
                 meeting.getTopic ()));
 
         holder.mDescriptionTextView.setText (desc);
@@ -72,14 +75,7 @@ public class ItemMeetingRecyclerViewAdapter extends RecyclerView.Adapter<ItemMee
         ((GradientDrawable)holder.mImageView.getBackground ()).setColor(meeting.getColor ());
 
         //delete Meeting
-        holder.mDeleteImageButton.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick (View v) {
-
-                EventBus.getDefault ().post (new DeleteMeetingEvent (meeting.getId ()));
-
-            }
-        });
+        holder.mDeleteImageButton.setOnClickListener (v -> EventBus.getDefault ().post (new DeleteMeetingEvent (meeting.getId ())));
 
 
     }
