@@ -87,13 +87,14 @@ Afficher la liste des réunions. Voici le prototype :
 Une réunion est représentée par la classe `Meeting` (nous 
 n'affichons que les attributs) :  
 
-![diagramme de classe UML "Meeting"](model_class_diagram_v0.1.png)  
+![model_class_diagram_v0 1](https://user-images.githubusercontent.com/60298344/78250199-cb988e80-74ef-11ea-9350-6074a9b2a0aa.png)
+
 
 ### Version 0.2
 
 Ajouter ou supprimer une réunion. Voici le prototype :  
 
-![prototype de la fonctionnalité "ajouter ou supprimer une réunion"](MaReu_v0.2.png)  
+![MaReu_v0 2](https://user-images.githubusercontent.com/60298344/78250159-bde30900-74ef-11ea-9ce4-a55720f6063c.png)
 
 ## Sources
 
