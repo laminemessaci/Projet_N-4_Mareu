@@ -30,7 +30,7 @@ implémentées :
 et ses versions supérieures.*  
 
 ### Outils et technologies utilisés
-
+  - **Trello :** planification projet https://trello.com/b/nOvYDRAR/planification-de-projet-n-4
   - **Draw.io :** dessin de diagramme en ligne
   - **Android Strudio :** Environnement de Développement Intégré (IDE)
   - **Java :** langage de développement utilisé (contrainte projet)
