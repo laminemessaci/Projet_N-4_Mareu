@@ -14,7 +14,7 @@ import static com.lamine.mareu.utils.dummies.DummyEmailGenerator.generateEmails;
  * Created by Lamine MESSACI on 27/03/2020.
  */
 public class DummyMeetingGenerator {
-
+    public static final String ROOM_NAME_2 = "Room 2";
     public static final String ROOM_NAME = "Room 3";
     public static final String TOPIC = "Sprint review";
     public static int ITEMS_COUNT = 12;

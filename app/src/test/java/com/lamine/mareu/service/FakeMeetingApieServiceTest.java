@@ -52,7 +52,7 @@ public class FakeMeetingApieServiceTest {
         try {
             mApi.addMeeting(meeting);
         } catch (MeetingApiServiceException e) {
-            // pass
+
         }
     }
 

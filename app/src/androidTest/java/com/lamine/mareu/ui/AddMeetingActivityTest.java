@@ -259,7 +259,7 @@ public class AddMeetingActivityTest {
          * Check valid time fields ('from' and 'to')
          */
 
-        /*
+
         @Test
         public void givenValidTime_whenClickToTimePicker_ThenGetValidTimeStringFormat() {
             AddMeetingActivity activity = mActivityRule.getActivity();
@@ -293,12 +293,12 @@ public class AddMeetingActivityTest {
             onView(withId(R.id.to_layout)).check(matchesNoErrorText());
         }
 
-         */
+
 
         /**
          * Check invalid start time (passed)
          */
-        /*
+
         @Test
         public void givenInvalidStartTime_whenClickToTimePicker_ThenGetErrorMessage() {
             AddMeetingActivity activity = mActivityRule.getActivity();
@@ -325,12 +325,12 @@ public class AddMeetingActivityTest {
             onView(withId(R.id.from)).check(matches(withHint(R.string.from)));
         }
 
-         */
+
 
         /**
          * Check invalid end time (earlier than start time)
          */
-        /*
+
         @Test
         public void givenInvalidEndTime_whenClickToTimePicker_ThenGetErrorMessage() {
             AddMeetingActivity activity = mActivityRule.getActivity();
@@ -356,7 +356,7 @@ public class AddMeetingActivityTest {
             onView(withId(R.id.to)).check(matches(withHint(R.string.to)));
         }
 
-
+      /*
         @Test
         public void whenPerformClickToReturnActionBar_thenAbortAddMeetingActivity() {
             onView(withContentDescription(R.string.abc_action_bar_up_description))
@@ -369,7 +369,9 @@ public class AddMeetingActivityTest {
                     .check(matches(isDisplayed()));
         }
 
-         */
+
+       */
+
     }
 
     @RunWith(Parameterized.class)

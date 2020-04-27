@@ -8,6 +8,10 @@ import java.util.Objects;
 /**
  * Created by Lamine MESSACI on 31/03/2020.
  */
+
+/**
+ * Convesion String ti time format
+ */
 public class UtilDateFormt {
     public static Calendar fromTime(String time) {
         // convert string to time

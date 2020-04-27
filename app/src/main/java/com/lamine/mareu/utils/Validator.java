@@ -18,7 +18,7 @@ public class Validator {
         }
     }
 
-    // TODO
+
     public static boolean validTime(Context context, String value) {
         try {
             android.text.format.DateFormat.getTimeFormat(context).parse(value);

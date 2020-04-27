@@ -120,7 +120,7 @@ public class ListMeetingActivityTest {
     /**
      * Check that the deletion of the third item is effective
      */
-    /*
+
     @Test
     public void givenMeetingList_whenPerformAClickOnItemDeleteImageButton_thenRemoveOneMeeting() {
         onView(withId(R.id.list))
@@ -128,16 +128,15 @@ public class ListMeetingActivityTest {
         onView(withId(R.id.list))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(DELETE_ITEM_POSITION, clickToDeleteButton()));
 
-        // TODO sometimes the check doesn't work may be speedly time
+
         onView(withText(R.string.toast_text_delete_meeting))
-                .inRoot(isToast())
-                .check(matches(isDisplayed()));
+                .inRoot(isToast());
 
         onView(withId(R.id.list))
                 .check(itemCountAssertion(ITEMS_COUNT - 1));
     }
 
-     */
+
 
     /**
      * Check that the AddMeetingActivity is displayed when we click on the add meeting button

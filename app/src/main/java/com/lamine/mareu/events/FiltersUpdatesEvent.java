@@ -15,6 +15,5 @@ public class FiltersUpdatesEvent {
         this.room = room;
         this.reset = reset;
 
-
     }
 }

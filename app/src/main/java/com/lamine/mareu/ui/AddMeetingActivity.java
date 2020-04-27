@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -82,11 +83,14 @@ public class AddMeetingActivity extends AppCompatActivity {
         ButterKnife.bind (this);
         mError = false;
         mNow = Calendar.getInstance();
+
         // Meeting room
         mRooms = sApiService.getRooms();
 
         // Meeting room Array of rooms
         mRoomNameAutoCompleteTextView.setAdapter(new ArrayAdapter<> (this, R.layout.room_item, mRooms));
+
+        //Configure Toolbar
         this.configureToolbar ();
 
         //Add meeting action
@@ -105,30 +109,23 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     }
 
-    /*
-    @Override
-    public boolean onCreateOptionsMenu (Menu menu) {
-        getMenuInflater ().inflate (R.menu.menu_add_meeting, menu);
-        return super.onCreateOptionsMenu (menu);
-    }
 
     @Override
     public boolean onOptionsItemSelected (@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_add_meeting:
-                addMeeting ();
-                return true;
+            //case R.id.action_add_meeting:
+                //addMeeting ();
+               // return true;
             case android.R.id.home:
                 Toast.makeText (this.getApplicationContext (), R.string.abort_add_meeting, Toast.LENGTH_LONG).show ();
                 Intent goHomeIntent = new Intent(this, ListMeetingActivity.class);
                 goHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(goHomeIntent);
         }
-        //return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
 
     }
 
-     */
 
     /**
      * scrolling menu for choice Room

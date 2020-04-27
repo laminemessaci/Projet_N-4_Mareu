@@ -39,6 +39,8 @@ public class ItemMeetingRecyclerViewAdapter extends RecyclerView.Adapter<ItemMee
 
    private Context mContext;
    private List<Meeting> mMeetings;
+
+   //List of Filtred Meetings with SearchView
    private List<Meeting> mFullMeetings;
 
     public ItemMeetingRecyclerViewAdapter (Context context, Calendar date, String room) {

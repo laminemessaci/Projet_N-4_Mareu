@@ -48,6 +48,7 @@ import static com.lamine.mareu.utils.dummies.DummyMeetingGenerator.ITEMS_COUNT;
 import static com.lamine.mareu.utils.dummies.DummyMeetingGenerator.MEETINGS_WITH_ROOM_NAME_1_COUNT;
 import static com.lamine.mareu.utils.dummies.DummyMeetingGenerator.ROOM_NAME;
 import static com.lamine.mareu.utils.dummies.DummyMeetingGenerator.ROOM_NAME_1;
+import static com.lamine.mareu.utils.dummies.DummyMeetingGenerator.ROOM_NAME_2;
 import static com.lamine.mareu.utils.dummies.DummyMeetingGenerator.TOMORROW_MEETINGS_COUNT;
 import static com.lamine.mareu.utils.dummies.DummyMeetingGenerator.TOMORROW_MEETING_WITH_ROOM_NAME_1;
 import static com.lamine.mareu.utils.dummies.DummyMeetingGenerator.TOPIC;
@@ -55,6 +56,7 @@ import static com.lamine.mareu.utils.dummies.DummyMeetingGenerator.generateMeeti
 import static com.lamine.mareu.utils.dummies.DummyMeetingGenerator.generateRooms;
 import static com.lamine.mareu.utils.matchers.ToastMatcher.isToast;
 
+import static org.hamcrest.Matchers.arrayWithSize;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.AllOf.allOf;
@@ -73,8 +75,7 @@ public class AllActivitiesTest {
      * Define rule to initialize ListMeetingActivity with test data
      */
     @Rule
-    public ActivityTestRule<ListMeetingActivity> mActivityRule =
-            new ActivityTestRule<ListMeetingActivity>(ListMeetingActivity.class) {
+    public ActivityTestRule<ListMeetingActivity> mActivityRule = new ActivityTestRule<ListMeetingActivity>(ListMeetingActivity.class) {
                 @Override
                 protected void beforeActivityLaunched() {
                     try {
@@ -89,16 +90,77 @@ public class AllActivitiesTest {
      * Initialize ListMeetingActivity with test data and check that it is not empty
      */
     @Before
-    public void setUp() {
+    public void setUp() throws MeetingApiServiceException {
         ListMeetingActivity activity = mActivityRule.getActivity();
         assertThat(activity, notNullValue());
+
+        // instantiation of 12 meeting
+        DI.initializeMeetingApiService(generateRooms(), generateMeetings());
     }
 
     /**
      * Scenario: book an available room
      */
+    @Test
+    public void myMeetingListTest_shouldContain_twelveMeeting(){
+        onView(allOf(withId(R.id.list), isDisplayed()))
+                .check(itemCountAssertion(12));
 
-    /*
+    }
+
+    @Test
+    public void whenReserveAvailableMeeting_thenItsValidated(){
+        // Init
+        Calendar from = generateDateTimeFromTomorrow(3,9,0);
+        Calendar to = generateDateTimeFromTomorrow(3,10,0);
+
+        // Click to add meeting
+        onView(withId(R.id.add)).perform(click());
+        // Fill in the fields
+        // room name
+        onView(withId(R.id.room_name)).perform(click());
+        onView(withText(ROOM_NAME))
+                .inRoot(isPlatformPopup())
+                .perform(click());
+        // topic
+        onView(withId(R.id.topic)).perform(typeText(TOPIC));
+        // date
+        onView(withId(R.id.date)).perform(click());
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
+                .perform(PickerActions.setDate(
+                        from.get(Calendar.YEAR),
+                        from.get(Calendar.MONTH) + 1,
+                        from.get(Calendar.DAY_OF_MONTH)));
+        onView(withText(android.R.string.ok)).perform(click());
+        // from (time)
+        onView(withId(R.id.from)).perform(click());
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
+                .perform(PickerActions.setTime(
+                        from.get(Calendar.HOUR_OF_DAY),
+                        from.get(Calendar.MINUTE)));
+        onView(withText(android.R.string.ok)).perform(click());
+        // to (time)
+        onView(withId(R.id.to)).perform(click());
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
+                .perform(PickerActions.setTime(
+                        to.get(Calendar.HOUR_OF_DAY),
+                        to.get(Calendar.MINUTE)));
+        onView(withText(android.R.string.ok)).perform(click());
+        // email
+        onView(withId(R.id.emails)).perform(typeText(VALID_EMAIL_1 + " "));
+
+        // Validate the entry
+        onView(withId(R.id.add_meeting)).perform(click());
+
+        // Check that the meeting has been added
+        onView(withText(R.string.add_new_meeting))
+                .inRoot(isToast())
+                .check(matches(isDisplayed()));
+        onView(withId(R.id.list))
+                .check(itemCountAssertion(ITEMS_COUNT + 1));
+
+    }
+
     @Test
     public void whenWeReserveAnAvailableRoom_thenItIsValidated() {
         // Init
@@ -106,7 +168,7 @@ public class AllActivitiesTest {
         Calendar to = generateDateTimeFromTomorrow(3,10,0);
 
         // Click to add meeting
-        onView(withId(R.id.add_meeting)).perform(click());
+        onView(withId(R.id.add)).perform(click());
 
         // Fill in the fields
         // room name
@@ -152,12 +214,15 @@ public class AllActivitiesTest {
                 .check(itemCountAssertion(ITEMS_COUNT + 1));
     }
 
-     */
+
 
     /**
      * Scenario: book an unavailable room
      */
-    /*
+
+
+
+
     @Test
     public void whenWeReserveAnUnavailableRoom_thenItIsRefused() {
         // Init
@@ -166,7 +231,7 @@ public class AllActivitiesTest {
         Calendar to = generateTomorrowDateTime(10,0);
 
         // Click to add meeting
-        onView(withId(R.id.add_meeting)).perform(click());
+        onView(withId(R.id.add)).perform(click());
 
         // Fill in the fields
         // room name
@@ -212,12 +277,12 @@ public class AllActivitiesTest {
                 .check(matchesErrorText(activity.getString(R.string.error_meeting_room_already_booked)));
     }
 
-     */
+
 
     /**
      * Scenario: abort an booked in progress
      */
-    /*
+
     @Test
     public void whenMakingReservationAndWhenWeClickToCancel_thenItIsAborted() {
         // Click to add meeting
@@ -232,13 +297,15 @@ public class AllActivitiesTest {
 
         // Check abort
         assertTrue(currentAddMeetingActivity.isFinishing());
-        // TODO sometimes the check doesn't work
+
         onView(withText(R.string.abort_add_meeting))
                     .inRoot(isToast())
                     .check(matches(isDisplayed()));
     }
 
-     */
+
+
+
 
     private Activity currentActivity = null;
 

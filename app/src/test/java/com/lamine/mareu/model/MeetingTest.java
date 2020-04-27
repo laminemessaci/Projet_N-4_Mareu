@@ -41,7 +41,6 @@ public class MeetingTest {
                 fromTime("11:00"),
                 fromTime("12:00"),
                 "Just a meeting",
-
                 participants);
 
         // Remove invalid email address

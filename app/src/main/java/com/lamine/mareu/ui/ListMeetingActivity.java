@@ -40,10 +40,9 @@ public class ListMeetingActivity extends AppCompatActivity {
 
     public static MeetingApiService sApiService;
 
-    @BindView(R.id.list)
-    RecyclerView mRecyclerView;
-    @BindView(R.id.add)
-    FloatingActionButton mFloatingActionButton;
+    @BindView(R.id.list) RecyclerView mRecyclerView;
+    @BindView(R.id.add) FloatingActionButton mFloatingActionButton;
+
     private ItemMeetingRecyclerViewAdapter mItemMeetingRecyclerViewAdapter;
 
 
@@ -58,8 +57,7 @@ public class ListMeetingActivity extends AppCompatActivity {
 
         mFloatingActionButton.setOnClickListener (v ->
                 ListMeetingActivity.this.startActivity
-                        (new Intent (ListMeetingActivity.this,
-                                AddMeetingActivity.class)));
+                        (new Intent (ListMeetingActivity.this, AddMeetingActivity.class)));
 
      this.configureToolbar ();
 
@@ -76,7 +74,6 @@ public class ListMeetingActivity extends AppCompatActivity {
      */
 
     private void performeFilter () {
-
         FilterDialogFragment filterDialogFragment = new FilterDialogFragment (sApiService.getRooms ());
         filterDialogFragment.show (getSupportFragmentManager (), "Filter");
     }
