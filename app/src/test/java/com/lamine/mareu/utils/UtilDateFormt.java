@@ -14,6 +14,17 @@ import java.util.Objects;
  */
 public class UtilDateFormt {
 
+    private static final Calendar NOW = initRoundedNow();
+    public static final Calendar TOMORROW = generateDateFromNow(1);
+
+    public static final Calendar YESTERDAY = generateDateFromNow(-1);
+
+    public static final Calendar TODAY_INVALID_START_TIME = generateTimeFromNow(-1);
+
+    public static final Calendar TOMORROW_VALID_START_TIME = (Calendar) TOMORROW.clone();
+    public static final Calendar TOMORROW_VALID_END_TIME = generateTimeFromTomorrow(1);
+    public static final Calendar TOMORROW_INVALID_END_TIME = generateTimeFromTomorrow(-1);
+
 
     public static Calendar fromTime(String time) {
         // convert string to time
@@ -29,17 +40,6 @@ public class UtilDateFormt {
 
         return datetime;
     }
-
-    private static final Calendar NOW = initRoundedNow();
-    public static final Calendar TOMORROW = generateDateFromNow(1);
-
-    public static final Calendar YESTERDAY = generateDateFromNow(-1);
-
-    public static final Calendar TODAY_INVALID_START_TIME = generateTimeFromNow(-1);
-
-    public static final Calendar TOMORROW_VALID_START_TIME = (Calendar) TOMORROW.clone();
-    public static final Calendar TOMORROW_VALID_END_TIME = generateTimeFromTomorrow(1);
-    public static final Calendar TOMORROW_INVALID_END_TIME = generateTimeFromTomorrow(-1);
 
     /**
      * Generate Calendar for today with the time rounded up to the next half hour
