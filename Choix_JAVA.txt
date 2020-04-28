@@ -1,0 +1,12 @@
+Raisons du choix du Langage JAVA:
+
+Java est un langage connu des développeurs. Java est reconnu comme langage de programmation le plus populaire au monde.
+ Il fonctionne dans une machine virtuelle, donc pas besoin de recompiler pour chaque téléphone et Java est facile à sécuriser. 
+Ceci est une caractéristique très importante. Fonctionnant sur une VM (donc pas de recompilation) est un énorme plus.
+Comme dit dans le point ci-dessus, puisque Java est le langage de programmation le plus populaire, un grand nombre d’outils de développement sont disponibles pour les développeurs. 
+Java a un énorme soutien open source, avec de nombreuses bibliothèques et outils pour rendre la vie plus facile aux développeurs.
+
+Plusieurs téléphones mobiles utilisent déjà  Java ME (Mobile Edition). 
+La différence de vitesse n’est pas un problème pour la plupart des applications; si elle était, vous devriez coder dans un langage bas niveau comme C/C++.
+Android, comme système d’exploitation fonctionne sur de nombreuses plates-formes matérielles différentes, y compris les téléviseurs intelligents, les montres connectées, les automobiles, etc.
+En plus des points ci-dessus, au moment de l’élaboration de la première version d’Android, les langages disponibles comme Go et Rust n’étaient pas des langages de programmation populaire.
