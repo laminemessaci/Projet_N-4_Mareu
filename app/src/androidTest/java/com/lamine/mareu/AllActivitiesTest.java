@@ -214,14 +214,9 @@ public class AllActivitiesTest {
                 .check(itemCountAssertion(ITEMS_COUNT + 1));
     }
 
-
-
     /**
      * Scenario: book an unavailable room
      */
-
-
-
 
     @Test
     public void whenWeReserveAnUnavailableRoom_thenItIsRefused() {

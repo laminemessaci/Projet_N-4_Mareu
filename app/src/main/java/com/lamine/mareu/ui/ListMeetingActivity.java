@@ -152,7 +152,6 @@ public class ListMeetingActivity extends AppCompatActivity {
             init (event.date, event.room);
     }
 
-
     private void init(Calendar date, String room) {
         mRecyclerView.setLayoutManager(new LinearLayoutManager (this));
         mItemMeetingRecyclerViewAdapter = new ItemMeetingRecyclerViewAdapter(getApplicationContext (), date, room);
