@@ -53,4 +53,6 @@ public interface MeetingApiService {
      * @param idMeeting
      */
     public void delMeeting(Integer idMeeting) throws MeetingApiServiceException;
+
+    void delAllMeeting();
 }

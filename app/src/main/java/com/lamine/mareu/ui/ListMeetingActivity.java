@@ -3,11 +3,15 @@ package com.lamine.mareu.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-
-
 import android.view.MenuItem;
 import android.widget.SearchView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lamine.mareu.R;
@@ -23,12 +27,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Calendar;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -45,28 +43,23 @@ public class ListMeetingActivity extends AppCompatActivity {
 
     private ItemMeetingRecyclerViewAdapter mItemMeetingRecyclerViewAdapter;
 
-
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_list_meeting);
-
         ButterKnife.bind (this);
-
         sApiService = DI.getApiService ();
 
         mFloatingActionButton.setOnClickListener (v ->
                 ListMeetingActivity.this.startActivity
                         (new Intent (ListMeetingActivity.this, AddMeetingActivity.class)));
 
-     this.configureToolbar ();
-
+        this.configureToolbar ();
     }
 
     private void configureToolbar(){
         Toolbar toolbar = (Toolbar) findViewById (R.id.activity_main_toolbar);
         setSupportActionBar (toolbar);
-
      }
 
     /**
@@ -91,7 +84,6 @@ public class ListMeetingActivity extends AppCompatActivity {
        return super.onOptionsItemSelected (item);
     }
 
-
     @Override
     protected void onPostResume () {
         super.onPostResume ();
@@ -103,12 +95,12 @@ public class ListMeetingActivity extends AppCompatActivity {
     protected void onStart () {
         super.onStart ();
         EventBus.getDefault ().register (this);
-
     }
 
     @Override
     protected void onStop () {
         EventBus.getDefault ().unregister (this);
+        sApiService.delAllMeeting();
         super.onStop ();
     }
 

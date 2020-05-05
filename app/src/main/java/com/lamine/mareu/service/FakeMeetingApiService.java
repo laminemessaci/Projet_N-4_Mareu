@@ -82,7 +82,7 @@ public class FakeMeetingApiService implements MeetingApiService {
     }
 
     @Override
-    public void delMeeting(Integer idMeeting) throws MeetingApiServiceException {
+    public void delMeeting(Integer idMeeting) {
         for (Meeting m : mMeetings) {
             if (m.getId().equals(idMeeting)) {
                 mMeetings.remove(m);
@@ -90,5 +90,13 @@ public class FakeMeetingApiService implements MeetingApiService {
             }
         }
 
+    }
+
+    @Override
+    public void delAllMeeting() {
+
+        for (Meeting m: mMeetings){
+            mMeetings.remove(m);
+        }
     }
 }
